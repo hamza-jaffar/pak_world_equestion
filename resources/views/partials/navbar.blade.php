@@ -18,12 +18,20 @@
     that content shouldn't start underneath the navbar — the hero slider is
     typically fine since it's meant to sit behind/under it.
 --}}
+@php
+    // Only the homepage gets the transparent -> black on scroll behavior.
+    // Every other page is always black, no scroll listener needed.
+    $isHome = request()->is('/');
+@endphp
+
 <header
-    x-data="{ mobileOpen: false, mobileServicesOpen: false, scrolled: false }"
-    x-init="
-        scrolled = window.scrollY > 20;
-        window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 });
-    "
+    x-data="{ mobileOpen: false, mobileServicesOpen: false, scrolled: {{ $isHome ? 'false' : 'true' }} }"
+    @if($isHome)
+        x-init="
+            scrolled = window.scrollY > 20;
+            window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 });
+        "
+    @endif
     :class="scrolled ? 'bg-black shadow-lg' : 'bg-transparent'"
     class="fixed top-0 inset-x-0 z-50 transition-colors duration-300"
 >
@@ -42,7 +50,7 @@
                    class="text-sm font-semibold tracking-wide text-white hover:text-emerald-500 transition-colors {{ request()->is('/') ? 'text-emerald-500' : '' }}">
                     HOME
                 </a>
-                <a href="{{ url('/about') }}"
+                <a href="{{ url('/about-us') }}"
                    class="text-sm font-semibold tracking-wide text-white hover:text-emerald-500 transition-colors {{ request()->is('about') ? 'text-emerald-500' : '' }}">
                     ABOUT US
                 </a>
@@ -68,13 +76,12 @@
                          class="absolute left-0 top-full mt-2 w-64 bg-neutral-900 border border-gray-800 rounded shadow-xl py-2 origin-top"
                          style="display: none;">
                         @foreach ([
-                            ['label' => 'Corporate Governance', 'url' => '/services/corporate-governance'],
-                            ['label' => 'Code of Conduct', 'url' => '/services/code-of-conduct'],
-                            ['label' => 'Path to a Greener Future', 'url' => '/services/greener-future'],
-                            ['label' => 'Team', 'url' => '/services/team'],
-                            ['label' => 'R&D', 'url' => '/services/rd'],
-                            ['label' => 'Words from the director', 'url' => '/services/director'],
-                            ['label' => 'Delivery', 'url' => '/services/delivery'],
+                            ['label' => 'Corporate Governance', 'url' => '/#corporate-governance'],
+                            ['label' => 'Code of Conduct', 'url' => '/#code-of-conduct'],
+                            ['label' => 'Team', 'url' => '/#team'],
+                            ['label' => 'R&D', 'url' => '/#rd'],
+                            ['label' => 'Words from the director', 'url' => '/#director'],
+                            ['label' => 'Delivery', 'url' => '/#delivery'],
                         ] as $item)
                             <a href="{{ url($item['url']) }}"
                                class="block px-5 py-2.5 text-sm text-gray-300 hover:text-emerald-500 hover:bg-black/40 transition-colors">

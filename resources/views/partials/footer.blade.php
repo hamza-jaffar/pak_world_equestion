@@ -24,13 +24,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('/about') }}"
+                        <a href="{{ url('/about-us') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
                             <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> About us
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('/services') }}"
+                        <a href="{{ url('/#services') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
                             <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Services
                         </a>
