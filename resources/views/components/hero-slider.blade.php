@@ -1,7 +1,7 @@
 @props([
     'slides' => [
         [
-            'image' => 'https://assets.bucketlistly.blog/sites/5adf778b6eabcc00190b75b1/assets/6075182186d092000b192cee/best-free-travel-images-image-2.jpg',
+            'image' => 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop',
             'title' => 'We are professional',
             'text' => "Euro Trend Group of Industries is Pakistan's largest and most reputable manufacturer of equestrian gear, with over 33 years of experience in the industry.",
             'button_text' => 'Get Started',
