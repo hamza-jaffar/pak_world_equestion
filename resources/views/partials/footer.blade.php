@@ -1,3 +1,15 @@
+@php
+    $siteName = \App\Models\Settings::value('site_name', config('app.name', 'Euro Trend Group of Industries'));
+    $siteEmail = \App\Models\Settings::value('site_email', 'ahmed@eurotrend.pk');
+    $sitePhone = \App\Models\Settings::value('site_phone', '(052) 3575231');
+    $siteAddress = \App\Models\Settings::value('site_address', "Daska Rd\nDakwala Stop, Sadra Badra\nSialkot, Punjab 51310");
+    $facebook = \App\Models\Settings::value('facebook_url', '#');
+    $instagram = \App\Models\Settings::value('instagram_url', '#');
+    $linkedin = \App\Models\Settings::value('linkedin_url', '#');
+    $twitter = \App\Models\Settings::value('twitter_url', '#');
+    $addressLines = preg_split('/\r\n|\r|\n/', $siteAddress);
+@endphp
+
 <footer class="bg-black text-gray-300">
     <div class="max-w-7xl mx-auto px-6 py-14">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -57,13 +69,13 @@
                 <h3 class="text-white font-bold uppercase text-sm tracking-wide mb-3">Contact Us</h3>
                 <div class="w-10 h-0.5 bg-emerald-600 mb-5"></div>
                 <address class="not-italic text-sm text-gray-300 leading-relaxed space-y-1">
-                    <p>Daska Rd</p>
-                    <p>Dakwala Stop, Sadra Badra</p>
-                    <p>Sialkot, Punjab 51310</p>
-                    <p class="pt-2"><span class="font-bold text-white">Phone:</span> (052) 3575231</p>
+                    @foreach ($addressLines as $line)
+                        <p>{{ trim($line) }}</p>
+                    @endforeach
+                    <p class="pt-2"><span class="font-bold text-white">Phone:</span> {{ $sitePhone }}</p>
                     <p><span class="font-bold text-white">Email:</span>
-                        <a href="mailto:ahmed@eurotrend.pk"
-                            class="hover:text-emerald-500 transition-colors">ahmed@eurotrend.pk</a>
+                        <a href="mailto:{{ $siteEmail }}"
+                            class="hover:text-emerald-500 transition-colors">{{ $siteEmail }}</a>
                     </p>
                 </address>
 
@@ -71,19 +83,19 @@
                 <div class="flex items-center gap-3 mt-5">
                     @php
                         $socials = [
-                            ['icon' => 'twitter', 'url' => '#'],
-                            ['icon' => 'facebook', 'url' => '#'],
-                            ['icon' => 'instagram', 'url' => '#'],
-                            ['icon' => 'google', 'url' => '#'],
-                            ['icon' => 'linkedin', 'url' => '#'],
+                            ['icon' => 'x-twitter', 'url' => $twitter],
+                            ['icon' => 'facebook', 'url' => $facebook],
+                            ['icon' => 'instagram', 'url' => $instagram],
+                            ['icon' => 'linkedin', 'url' => $linkedin],
                         ];
                     @endphp
                     @foreach ($socials as $social)
-                        <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer"
-                            class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-emerald-500 transition-colors">
-                            {{-- Swap for your icon library (Font Awesome, Heroicons, etc.) --}}
-                            <i class="fab fa-{{ $social['icon'] }} text-sm"></i>
-                        </a>
+                        @if (!empty($social['url']) && $social['url'] !== '#')
+                            <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer"
+                                class="w-9 h-9 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-emerald-500 transition-colors" aria-label="Social link">
+                                <i class="fab fa-{{ $social['icon'] }} text-sm"></i>
+                            </a>
+                        @endif
                     @endforeach
                 </div>
             </div>

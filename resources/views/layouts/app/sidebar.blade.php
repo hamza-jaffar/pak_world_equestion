@@ -33,6 +33,11 @@
                     wire:navigate>
                     {{ __('Pages') }}
                 </flux:sidebar.item>
+
+                <flux:sidebar.item icon="cog-6-tooth" :href="route('dashboard.settings')" :current="request()->routeIs('dashboard.settings')"
+                    wire:navigate>
+                    {{ __('Site Settings') }}
+                </flux:sidebar.item>
             </flux:sidebar.group>
         </flux:sidebar.nav>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ContactAdminController;
 use App\Http\Controllers\Admin\NewLetterAdminController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\NewLetterController;
 use App\Http\Controllers\Frontend\PageController as FrontendPageController;
@@ -26,6 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('dashboard/pages/{page}', [AdminPageController::class, 'update'])->name('dashboard.pages.update');
     Route::delete('dashboard/pages/{page}', [AdminPageController::class, 'destroy'])->name('dashboard.pages.destroy');
     Route::post('dashboard/pages/upload-image', [AdminPageController::class, 'uploadImage'])->name('dashboard.pages.upload-image');
+
+    Route::get('dashboard/settings', [SiteSettingsController::class, 'index'])->name('dashboard.settings');
+    Route::post('dashboard/settings', [SiteSettingsController::class, 'store'])->name('dashboard.settings.store');
 
     Route::get('dashboard/contacts', [ContactAdminController::class, 'index'])->name('dashboard.contacts');
     Route::delete('dashboard/contacts/{contact}', [ContactAdminController::class, 'destroy'])->name('dashboard.contacts.destroy');
