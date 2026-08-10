@@ -25,110 +25,78 @@
     'interval' => 5000,
 ])
 
-<div
-    x-data="heroSlider({{ $interval }}, {{ count($slides) }})"
-    x-init="start()"
-    @mouseenter="pause()"
-    @mouseleave="start()"
-    class="relative w-full h-[90vh] min-h-120 overflow-hidden"
->
-    {{-- Slides track --}}
-    <div
-        class="flex w-full h-full transition-transform duration-700 ease-in-out"
-        :style="`transform: translateX(-${current * 100}%)`"
-    >
-        @foreach ($slides as $i => $slide)
-            <div
-                class="relative flex items-center justify-center w-full h-full shrink-0 bg-cover bg-center"
-                style="background-image: url('{{ $slide['image'] ?? '' }}')"
-            >
-                <div class="absolute inset-0 bg-black/55"></div>
-
-                <div class="relative z-10 max-w-3xl px-6 text-center text-white">
-                    @if(!empty($slide['title']))
-                        <h1 class="text-3xl md:text-5xl font-bold mb-5">{{ $slide['title'] }}</h1>
-                    @endif
-                    @if(!empty($slide['text']))
-                        <p class="text-sm md:text-base leading-relaxed text-white/90 mb-7">{{ $slide['text'] }}</p>
-                    @endif
-                    @if(!empty($slide['button_text']))
-                        <a
-                            href="{{ $slide['button_link'] ?? '#' }}"
-                            class="inline-block rounded-full bg-emerald-500 hover:bg-emerald-600 px-9 py-3.5 font-semibold text-white transition-colors duration-200 hover:-translate-y-0.5 transform"
-                        >
-                            {{ $slide['button_text'] }}
-                        </a>
-                    @endif
-                </div>
-            </div>
-        @endforeach
+@if (count($slides) === 0)
+    <div class="flex h-[420px] items-center justify-center bg-gradient-to-r from-emerald-500 to-emerald-700 text-lg font-semibold text-white">
+        Hero slider ready
     </div>
-
-    {{-- Prev / Next arrows --}}
-    @if(count($slides) > 1)
-        <button
-            type="button"
-            @click="prev()"
-            aria-label="Previous slide"
-            class="absolute top-1/2 left-4 z-20 -translate-y-1/2 text-3xl text-white/70 hover:text-white transition-colors duration-200 p-3"
+@else
+    <div
+        x-data="heroSlider({{ $interval }}, {{ count($slides) }})"
+        x-init="start()"
+        @mouseenter="pause()"
+        @mouseleave="start()"
+        class="relative w-full h-[90vh] min-h-[480px] overflow-hidden"
+    >
+        <div
+            class="flex h-full w-full transition-transform duration-700 ease-in-out"
+            :style="`transform: translateX(-${current * 100}%)`"
         >
-            &#10094;
-        </button>
-        <button
-            type="button"
-            @click="next()"
-            aria-label="Next slide"
-            class="absolute top-1/2 right-4 z-20 -translate-y-1/2 text-3xl text-white/70 hover:text-white transition-colors duration-200 p-3"
-        >
-            &#10095;
-        </button>
-
-        {{-- Dots --}}
-        <div class="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2.5">
             @foreach ($slides as $i => $slide)
-                <button
-                    type="button"
-                    @click="goTo({{ $i }})"
-                    aria-label="Go to slide {{ $i + 1 }}"
-                    class="h-2.5 w-2.5 rounded-full transition-all duration-200"
-                    :class="current === {{ $i }} ? 'bg-white scale-125' : 'bg-white/45'"
-                ></button>
+                <div
+                    class="relative flex h-full w-full shrink-0 items-center justify-center bg-cover bg-center"
+                    style="background-image: url('{{ $slide['image'] ?? '' }}')"
+                >
+                    <div class="absolute inset-0 bg-black/55"></div>
+
+                    <div class="relative z-10 max-w-3xl px-6 text-center text-white">
+                        @if(!empty($slide['title']))
+                            <h1 class="mb-5 text-3xl font-bold md:text-5xl">{{ $slide['title'] }}</h1>
+                        @endif
+                        @if(!empty($slide['text']))
+                            <p class="mb-7 text-sm leading-relaxed text-white/90 md:text-base">{{ $slide['text'] }}</p>
+                        @endif
+                        @if(!empty($slide['button_text']))
+                            <a
+                                href="{{ $slide['button_link'] ?? '#' }}"
+                                class="inline-block rounded-full bg-emerald-500 px-9 py-3.5 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-emerald-600"
+                            >
+                                {{ $slide['button_text'] }}
+                            </a>
+                        @endif
+                    </div>
+                </div>
             @endforeach
         </div>
-    @endif
-</div>
 
-@once
-    @push('scripts')
-        <script>
-            function heroSlider(interval, total) {
-                return {
-                    current: 0,
-                    total: total,
-                    timer: null,
-                    next() {
-                        this.current = (this.current + 1) % this.total;
-                    },
-                    prev() {
-                        this.current = (this.current - 1 + this.total) % this.total;
-                    },
-                    goTo(index) {
-                        this.current = index;
-                        this.restart();
-                    },
-                    start() {
-                        if (this.total <= 1) return;
-                        this.timer = setInterval(() => this.next(), interval);
-                    },
-                    pause() {
-                        clearInterval(this.timer);
-                    },
-                    restart() {
-                        this.pause();
-                        this.start();
-                    },
-                }
-            }
-        </script>
-    @endpush
-@endonce
+        @if(count($slides) > 1)
+            <button
+                type="button"
+                @click="prev()"
+                aria-label="Previous slide"
+                class="absolute left-4 top-1/2 z-20 -translate-y-1/2 p-3 text-3xl text-white/70 transition-colors duration-200 hover:text-white"
+            >
+                &#10094;
+            </button>
+            <button
+                type="button"
+                @click="next()"
+                aria-label="Next slide"
+                class="absolute right-4 top-1/2 z-20 -translate-y-1/2 p-3 text-3xl text-white/70 transition-colors duration-200 hover:text-white"
+            >
+                &#10095;
+            </button>
+
+            <div class="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2.5">
+                @foreach ($slides as $i => $slide)
+                    <button
+                        type="button"
+                        @click="goTo({{ $i }})"
+                        aria-label="Go to slide {{ $i + 1 }}"
+                        class="h-2.5 w-2.5 rounded-full transition-all duration-200"
+                        :class="current === {{ $i }} ? 'scale-125 bg-white' : 'bg-white/45'"
+                    ></button>
+                @endforeach
+            </div>
+        @endif
+    </div>
+@endif

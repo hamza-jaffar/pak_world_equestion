@@ -1,7 +1,29 @@
 <x-layouts::guest>
     <section class="mt-20">
-    <section class="bg-gray-50 mt-12 py-16 px-6">
+    <section id="contact-form" class="bg-gray-50 mt-12 py-16 px-6">
         <div class="max-w-6xl mx-auto">
+
+            @if (session('success'))
+                <div class="mb-6 rounded-md border border-emerald-500 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="mb-6 rounded-md border border-red-500 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-6 rounded-md border border-red-500 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <ul class="list-disc pl-5 space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             {{-- Heading --}}
             <div class="text-center mb-14">
@@ -10,24 +32,19 @@
             </div>
 
             {{-- Info row --}}
-            <div
-                class="grid grid-cols-3 divide-x divide-gray-300 mb-14 text-center">
-
-                {{-- Address --}}
+            <div class="grid grid-cols-3 divide-x divide-gray-300 mb-14 text-center">
                 <div class="px-6 pb-8 sm:pb-0">
                     <flux:icon.map-pin class="w-8 h-8 mx-auto text-emerald-500 mb-3" />
                     <h3 class="text-sm font-semibold tracking-widest text-gray-500 mb-2">ADDRESS</h3>
                     <p class="text-gray-800">Daska Rd, Dakwala Stop, Sadra Badra, Sialkot, Punjab 51310</p>
                 </div>
 
-                {{-- Phone --}}
                 <div class="px-6 py-8 sm:py-0">
                     <flux:icon.phone class="w-8 h-8 mx-auto text-emerald-500 mb-3" />
                     <h3 class="text-sm font-semibold tracking-widest text-gray-500 mb-2">PHONE NUMBER</h3>
                     <p class="text-gray-800">(052) 3575231</p>
                 </div>
 
-                {{-- Email --}}
                 <div class="px-6 pt-8 sm:pt-0">
                     <flux:icon.envelope class="w-8 h-8 mx-auto text-emerald-500 mb-3" />
                     <h3 class="text-sm font-semibold tracking-widest text-gray-500 mb-2">EMAIL</h3>
@@ -36,8 +53,10 @@
             </div>
 
             {{-- Form --}}
-            <form method="POST" action="{{ route('contact.store') }}" class="max-w-5xl mx-auto space-y-6">
+            <form method="POST" action="{{ route('contact.store') }}" data-ajax-form class="max-w-5xl mx-auto space-y-6">
                 @csrf
+
+                <div data-form-status class="hidden rounded-md border px-4 py-3 text-sm"></div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <input type="text" name="name" placeholder="Your Name" value="{{ old('name') }}"

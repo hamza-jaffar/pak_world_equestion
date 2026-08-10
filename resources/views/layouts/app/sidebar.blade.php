@@ -19,6 +19,16 @@
                     wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:sidebar.item>
+
+                <flux:sidebar.item icon="inbox" :href="route('dashboard.contacts')" :current="request()->routeIs('dashboard.contacts')"
+                    wire:navigate>
+                    {{ __('Contact Messages') }}
+                </flux:sidebar.item>
+
+                <flux:sidebar.item icon="envelope" :href="route('dashboard.newsletters')" :current="request()->routeIs('dashboard.newsletters')"
+                    wire:navigate>
+                    {{ __('Newsletter Subscribers') }}
+                </flux:sidebar.item>
             </flux:sidebar.group>
         </flux:sidebar.nav>
 

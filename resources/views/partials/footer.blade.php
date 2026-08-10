@@ -20,31 +20,33 @@
                     <li>
                         <a href="{{ url('/') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Home
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3" /></span> Home
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/about-us') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> About us
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3" /></span> About us
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/#services') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Services
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3" /></span> Services
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/terms-of-service') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Terms of service
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3" /></span> Terms of
+                            service
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/privacy-policy') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Privacy policy
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3" /></span> Privacy
+                            policy
                         </a>
                     </li>
                 </ul>
@@ -87,24 +89,39 @@
             </div>
 
             {{-- Newsletter --}}
-            <div>
+            <div id="newsletter-form" class="scroll-mt-24">
                 <h3 class="text-white font-bold uppercase text-sm tracking-wide mb-3">Our Newsletter</h3>
                 <div class="w-10 h-0.5 bg-emerald-600 mb-5"></div>
                 <p class="text-sm text-gray-400 mb-4">
                     Send us your email for further more information on any events or Newsletter
                 </p>
-                {{-- <form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex"> --}}
-                    <div class="flex">
+
+                @if (session('success'))
+                    <div
+                        class="mb-3 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="mb-3 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-200">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <form action="{{ route('newsletter') }}" method="POST" data-ajax-form class="flex flex-col gap-2">
+                    <div class="flex w-full">
                         @csrf
-                        <input type="email" name="email" placeholder="Enter your email" required
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter your email"
+                            required
                             class="w-full px-3 py-2 text-sm text-black bg-white rounded-l focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <button type="submit"
+                        <button type="submit" data-loading-text="Subscribing..."
                             class="px-5 py-2 text-sm font-medium text-black bg-emerald-500 rounded-r hover:bg-emerald-600 transition-colors whitespace-nowrap">
                             Subscribe
                         </button>
                     </div>
-                    {{--
-                </form> --}}
+                    <div data-form-status class="hidden"></div>
+                </form>
             </div>
 
         </div>
