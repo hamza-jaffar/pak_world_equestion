@@ -31,4 +31,22 @@ class AdminPageManagementTest extends TestCase
             'name' => 'Privacy Policy',
         ]);
     }
+
+    public function test_public_page_route_displays_saved_content(): void
+    {
+        Pages::create([
+            'name' => 'Privacy Policy',
+            'slug' => 'privacy-policy',
+            'content' => '<h2>Our Privacy Policy</h2><p>This is the public policy content.</p>',
+            'meta_title' => 'Privacy Policy',
+            'meta_description' => 'Privacy policy description',
+            'is_active' => true,
+        ]);
+
+        $response = $this->get(route('slugpage', ['slug' => 'privacy-policy']));
+
+        $response->assertOk();
+        $response->assertSee('Our Privacy Policy');
+        $response->assertSee('This is the public policy content.');
+    }
 }

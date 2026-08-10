@@ -26,7 +26,7 @@
                     <label for="slug" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Slug</label>
                     <select id="slug" name="slug" class="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-zinc-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">
                         <option value="privacy-policy" {{ old('slug') === 'privacy-policy' ? 'selected' : '' }}>Privacy Policy</option>
-                        <option value="terms-of-condition" {{ old('slug') === 'terms-of-condition' ? 'selected' : '' }}>Terms & Conditions</option>
+                        <option value="terms-of-service" {{ old('slug') === 'terms-of-service' ? 'selected' : '' }}>Terms of Service</option>
                     </select>
                     @error('slug')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

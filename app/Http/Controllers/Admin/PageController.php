@@ -26,7 +26,7 @@ class PageController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'in:privacy-policy,terms-of-condition', 'unique:pages,slug'],
+            'slug' => ['required', 'string', 'max:255', 'in:privacy-policy,terms-of-service', 'unique:pages,slug'],
             'content' => ['required', 'string'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:500'],
@@ -49,7 +49,7 @@ class PageController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'in:privacy-policy,terms-of-condition', 'unique:pages,slug,' . $page->id],
+            'slug' => ['required', 'string', 'max:255', 'in:privacy-policy,terms-of-service', 'unique:pages,slug,' . $page->id],
             'content' => ['required', 'string'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:500'],

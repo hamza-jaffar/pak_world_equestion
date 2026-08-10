@@ -6,7 +6,10 @@
 <body>
     @include('partials.navbar')
 
-    {{ $slot }}
+    <section class="bg-white">
+        {{ $slot }}
+    </section>
+
 
     @include('partials.footer')
     @stack('scripts')
