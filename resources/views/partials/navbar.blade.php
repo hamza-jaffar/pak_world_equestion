@@ -5,11 +5,29 @@
 
     Requires:
       - Tailwind CSS
-      - Alpine.js (for the dropdown + mobile menu state)
+      - Alpine.js (for the dropdown + mobile menu + scroll state)
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    Behavior:
+      - Fixed to the top of the viewport at all times.
+      - Transparent background on load (so it sits on top of a hero image/slider).
+      - Background fades to solid black once the page is scrolled past 20px.
+
+    NOTE: Because the header is `fixed`, it is removed from normal document
+    flow. Add top padding (or a spacer) to whatever sits right below it if
+    that content shouldn't start underneath the navbar — the hero slider is
+    typically fine since it's meant to sit behind/under it.
 --}}
-<header x-data="{ mobileOpen: false, mobileServicesOpen: false }" class="bg-black relative z-50">
-    <div class="max-w-7xl mx-auto px-6">
+<header
+    x-data="{ mobileOpen: false, mobileServicesOpen: false, scrolled: false }"
+    x-init="
+        scrolled = window.scrollY > 20;
+        window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 });
+    "
+    :class="scrolled ? 'bg-black shadow-lg' : 'bg-transparent'"
+    class="fixed top-0 inset-x-0 z-50 transition-colors duration-300"
+>
+    <div class="max-w-7xl mx-auto px-6 w-full">
         <div class="flex items-center justify-between h-20">
 
             {{-- Logo --}}

@@ -1,12 +1,3 @@
-{{--
-Footer Component
-Usage: <x-footer /> (save as resources/views/components/footer.blade.php)
-Or include directly: @include('partials.footer')
-
-Tailwind CSS is assumed. Adjust class names if you're on Bootstrap instead
-(a plain-CSS version is not needed since Tailwind utilities map 1:1 to the
-inline styles used below).
---}}
 <footer class="bg-black text-gray-300">
     <div class="max-w-7xl mx-auto px-6 py-14">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -29,31 +20,31 @@ inline styles used below).
                     <li>
                         <a href="{{ url('/') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500">&rsaquo;</span> Home
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Home
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/about') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500">&rsaquo;</span> About us
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> About us
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/services') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500">&rsaquo;</span> Services
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Services
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/terms-of-service') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500">&rsaquo;</span> Terms of service
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Terms of service
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/privacy-policy') }}"
                             class="flex items-center gap-2 text-gray-300 hover:text-emerald-500 transition-colors">
-                            <span class="text-emerald-500">&rsaquo;</span> Privacy policy
+                            <span class="text-emerald-500"><flux:icon.chevron-right class="size-3"  /></span> Privacy policy
                         </a>
                     </li>
                 </ul>
