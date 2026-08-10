@@ -9,6 +9,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 @fonts
