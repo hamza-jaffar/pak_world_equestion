@@ -121,8 +121,14 @@
          style="display: none;"
          @keydown.escape.window="mobileOpen = false">
 
+@php
+    $navLogoUrl = \App\Models\Settings::value('site_logo')
+        ? asset('storage/' . \App\Models\Settings::value('site_logo'))
+        : asset('images/logo.png');
+    $navSiteName = \App\Models\Settings::value('site_name', config('app.name', 'Euro Trend'));
+@endphp
         <div class="flex items-center justify-between px-6 h-20">
-            <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'Euro Trend') }}" class="h-9 w-auto">
+            <img src="{{ $navLogoUrl }}" alt="{{ $navSiteName }}" class="h-9 w-auto object-contain">
             <button type="button" @click="mobileOpen = false" class="text-white p-2" aria-label="Close menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

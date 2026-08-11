@@ -2,16 +2,20 @@
     'sidebar' => false,
 ])
 
+@php
+    $siteName = \App\Models\Settings::value('site_name', config('app.name', 'Euro Trend'));
+    $logoPath  = \App\Models\Settings::value('site_logo');
+    $logoUrl   = $logoPath ? asset('storage/' . $logoPath) : asset('images/logo.png');
+@endphp
+
 @if($sidebar)
-    <flux:sidebar.brand :name="config('app.name', 'Laravel')" {{ $attributes }}>
-        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-            <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
+    <flux:sidebar.brand {{ $attributes }}>
+        <x-slot name="logo" class="flex items-center justify-center">
+            <img src="{{ $logoUrl }}" alt="{{ $siteName }}" class="h-8 w-auto object-contain">
         </x-slot>
     </flux:sidebar.brand>
 @else
-    <flux:brand :name="config('app.name', 'Laravel')" {{ $attributes }}>
-        <x-slot name="logo" class="flex aspect-square size-8 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-            <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
-        </x-slot>
-    </flux:brand>
+    <a href="{{ url('/') }}" class="flex items-center gap-2 shrink-0" {{ $attributes }}>
+        <img src="{{ $logoUrl }}" alt="{{ $siteName }}" class="h-10 w-auto object-contain">
+    </a>
 @endif
