@@ -78,8 +78,7 @@
 <section class="relative overflow-hidden bg-gray-50 py-20">
     {{-- Faint world-map watermark background --}}
     <div
-        class="pointer-events-none absolute inset-0 opacity-[0.04] bg-center bg-no-repeat bg-contain"
-        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg')"
+        class="pointer-events-none absolute inset-0 opacity-[0.04]"
     ></div>
 
     <div class="relative max-w-6xl mx-auto px-6">

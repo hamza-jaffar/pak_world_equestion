@@ -34,6 +34,12 @@
                     {{ __('Pages') }}
                 </flux:sidebar.item>
 
+                <flux:sidebar.item icon="adjustments-vertical" :href="route('dashboard.slider')" :current="request()->routeIs('dashboard.slider')"
+                    wire:navigate>
+                    {{ __('Sliders') }}
+                </flux:sidebar.item>
+
+
                 <flux:sidebar.item icon="cog-6-tooth" :href="route('dashboard.settings')" :current="request()->routeIs('dashboard.settings')"
                     wire:navigate>
                     {{ __('Site Settings') }}

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ContactAdminController;
 use App\Http\Controllers\Admin\NewLetterAdminController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SiteSettingsController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\NewLetterController;
 use App\Http\Controllers\Frontend\PageController as FrontendPageController;
@@ -35,6 +36,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('dashboard/contacts/{contact}', [ContactAdminController::class, 'destroy'])->name('dashboard.contacts.destroy');
     Route::get('dashboard/newsletters', [NewLetterAdminController::class, 'index'])->name('dashboard.newsletters');
     Route::delete('dashboard/newsletters/{newLetter}', [NewLetterAdminController::class, 'destroy'])->name('dashboard.newsletters.destroy');
+
+    Route::get('dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider');
+    Route::post('dashboard/slider/store', [SliderController::class, 'store'])->name('dashboard.slider.store');
+    Route::delete('dashboard/slider/delete/{slider}', [SliderController::class, 'delete'])->name('dashboard.slider.destroy');
 });
 
 require __DIR__.'/settings.php';
