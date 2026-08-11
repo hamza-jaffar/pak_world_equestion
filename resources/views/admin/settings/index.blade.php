@@ -69,6 +69,22 @@
                 </div>
             </div>
 
+
+            {{-- Footer Content --}}
+            <div class="pt-4 border-t border-zinc-200 dark:border-zinc-700">
+                <h2 class="text-base font-semibold text-gray-800 dark:text-white mb-4">Footer Content</h2>
+                <div class="space-y-5">
+                    <div>
+                        <label for="footer_about_text" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Footer — Brand Description</label>
+                        <textarea id="footer_about_text" name="footer_about_text" rows="3" placeholder="Short company description shown below the logo in the footer..." class="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-zinc-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">{{ old('footer_about_text', $settings['footer_about_text'] ?? '') }}</textarea>
+                    </div>
+                    <div>
+                        <label for="footer_newsletter_text" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Footer — Newsletter Blurb</label>
+                        <textarea id="footer_newsletter_text" name="footer_newsletter_text" rows="2" placeholder="Text shown above the newsletter email subscribe form..." class="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-zinc-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-white">{{ old('footer_newsletter_text', $settings['footer_newsletter_text'] ?? '') }}</textarea>
+                    </div>
+                </div>
+            </div>
+
             <div class="flex justify-end">
                 <button type="submit" class="rounded-md bg-white px-5 py-2.5 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-zinc-300 hover:bg-gray-100 dark:bg-zinc-700 dark:text-white dark:ring-zinc-600 dark:hover:bg-zinc-600">
                     Save Settings
@@ -77,3 +93,4 @@
         </form>
     </div>
 </x-layouts::app>
+

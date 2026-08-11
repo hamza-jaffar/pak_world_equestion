@@ -1,13 +1,15 @@
 @php
-    $siteName = \App\Models\Settings::value('site_name', config('app.name', 'Euro Trend Group of Industries'));
-    $siteEmail = \App\Models\Settings::value('site_email', 'ahmed@eurotrend.pk');
-    $sitePhone = \App\Models\Settings::value('site_phone', '(052) 3575231');
-    $siteAddress = \App\Models\Settings::value('site_address', "Daska Rd\nDakwala Stop, Sadra Badra\nSialkot, Punjab 51310");
-    $facebook = \App\Models\Settings::value('facebook_url', '#');
-    $instagram = \App\Models\Settings::value('instagram_url', '#');
-    $linkedin = \App\Models\Settings::value('linkedin_url', '#');
-    $twitter = \App\Models\Settings::value('twitter_url', '#');
-    $addressLines = preg_split('/\r\n|\r|\n/', $siteAddress);
+    $siteName           = \App\Models\Settings::value('site_name', config('app.name', 'Euro Trend Group of Industries'));
+    $siteEmail          = \App\Models\Settings::value('site_email', 'ahmed@eurotrend.pk');
+    $sitePhone          = \App\Models\Settings::value('site_phone', '(052) 3575231');
+    $siteAddress        = \App\Models\Settings::value('site_address', "Daska Rd\nDakwala Stop, Sadra Badra\nSialkot, Punjab 51310");
+    $facebook           = \App\Models\Settings::value('facebook_url', '#');
+    $instagram          = \App\Models\Settings::value('instagram_url', '#');
+    $linkedin           = \App\Models\Settings::value('linkedin_url', '#');
+    $twitter            = \App\Models\Settings::value('twitter_url', '#');
+    $footerAboutText    = \App\Models\Settings::value('footer_about_text', "Euro Trend is Pakistan's largest and most reputable manufacturer of equestrian gear, with over 33 years of experience in the industry. Spanning an infrastructure area of over 155,000 square feet.");
+    $footerNewsletterText = \App\Models\Settings::value('footer_newsletter_text', 'Send us your email for further more information on any events or Newsletter');
+    $addressLines       = preg_split('/\r\n|\r|\n/', $siteAddress);
 @endphp
 
 <footer class="bg-black text-gray-300">
@@ -18,9 +20,7 @@
             <div class="flex flex-col gap-3">
                 <x-app-logo />
                 <p class="text-sm leading-relaxed text-gray-400">
-                    Euro Trend is Pakistan's largest and most reputable manufacturer of
-                    equestrian gear, with over 33 years of experience in the industry.
-                    Spanning an infrastructure area of over 155,000 square feet.
+                    {{ $footerAboutText }}
                 </p>
             </div>
 
@@ -105,7 +105,7 @@
                 <h3 class="text-white font-bold uppercase text-sm tracking-wide mb-3">Our Newsletter</h3>
                 <div class="w-10 h-0.5 bg-emerald-600 mb-5"></div>
                 <p class="text-sm text-gray-400 mb-4">
-                    Send us your email for further more information on any events or Newsletter
+                    {{ $footerNewsletterText }}
                 </p>
 
                 @if (session('success'))

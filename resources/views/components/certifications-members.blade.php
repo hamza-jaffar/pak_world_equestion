@@ -1,32 +1,3 @@
-{{--
-    Certifications & Members Component (Tailwind CSS)
-    -------------------------------------------------------
-    Save as: resources/views/components/certifications-members.blade.php
-    Usage:   <x-certifications-members />
-
-    Two auto-scrolling logo sliders (built on <x-logo-marquee>) stacked in
-    one section with a faint world-map watermark, matching the
-    "Our Certifications" / "Members" block from the screenshot.
-
-    Override with your own logos any time:
-
-        <x-certifications-members
-            :certifications="[
-                ['image' => asset('images/certs/iso.png'), 'alt' => 'ISO'],
-                ['image' => asset('images/certs/oeko-tex.png'), 'alt' => 'OEKO-TEX'],
-                ['image' => asset('images/certs/bluesign.png'), 'alt' => 'Bluesign'],
-                ['image' => asset('images/certs/bsci.png'), 'alt' => 'BSCI'],
-                ['image' => asset('images/certs/ce.png'), 'alt' => 'CE'],
-            ]"
-            :members="[
-                ['image' => asset('images/members/sialkot-chamber.png'), 'alt' => 'Sialkot Chamber of Commerce & Industry'],
-                ['image' => asset('images/members/some-member.png'), 'alt' => 'Member'],
-            ]"
-        />
-
-    Requires: same as <x-logo-marquee> (pure CSS, no JS dependency).
---}}
-
 @props([
     'certifications' => [
         ['image' => 'https://upload.wikimedia.org/wikipedia/commons/9/9e/ISO_Logo_%282017%29.svg', 'alt' => 'ISO'],
@@ -41,11 +12,6 @@
 ])
 
 <section class="relative overflow-hidden bg-gray-50 py-20">
-    {{-- Faint world-map watermark background --}}
-    <div
-        class="pointer-events-none absolute inset-0 opacity-[0.04] bg-center bg-no-repeat bg-contain"
-        style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg')"
-    ></div>
 
     <div class="relative max-w-6xl mx-auto px-6">
 

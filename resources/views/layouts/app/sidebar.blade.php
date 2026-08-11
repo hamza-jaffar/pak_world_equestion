@@ -44,6 +44,26 @@
                     {{ __('About Us') }}
                 </flux:sidebar.item>
 
+                <flux:sidebar.item icon="briefcase" :href="route('dashboard.services.index')" :current="request()->routeIs('dashboard.services.index') || request()->routeIs('dashboard.services.*')"
+                    wire:navigate>
+                    {{ __('Services') }}
+                </flux:sidebar.item>
+
+                <flux:sidebar.item icon="photo" :href="route('dashboard.portfolios.index')" :current="request()->routeIs('dashboard.portfolios.index') || request()->routeIs('dashboard.portfolios.*')"
+                    wire:navigate>
+                    {{ __('Portfolios') }}
+                </flux:sidebar.item>
+
+                <flux:sidebar.item icon="academic-cap" :href="route('dashboard.certifications.index')" :current="request()->routeIs('dashboard.certifications.index') || request()->routeIs('dashboard.certifications.*')"
+                    wire:navigate>
+                    {{ __('Certifications') }}
+                </flux:sidebar.item>
+
+                <flux:sidebar.item icon="users" :href="route('dashboard.members.index')" :current="request()->routeIs('dashboard.members.index') || request()->routeIs('dashboard.members.*')"
+                    wire:navigate>
+                    {{ __('Members') }}
+                </flux:sidebar.item>
+
 
                 <flux:sidebar.item icon="cog-6-tooth" :href="route('dashboard.settings')" :current="request()->routeIs('dashboard.settings')"
                     wire:navigate>

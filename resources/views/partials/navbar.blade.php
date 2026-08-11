@@ -1,27 +1,16 @@
 {{--
-    Navbar Component
-    Save as: resources/views/components/navbar.blade.php
-    Usage:   <x-navbar />
-
-    Requires:
-      - Tailwind CSS
-      - Alpine.js (for the dropdown + mobile menu + scroll state)
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    Navbar Component - Dynamic Services Dropdown
     Behavior:
       - Fixed to the top of the viewport at all times.
       - Transparent background on load (so it sits on top of a hero image/slider).
       - Background fades to solid black once the page is scrolled past 20px.
-
-    NOTE: Because the header is `fixed`, it is removed from normal document
-    flow. Add top padding (or a spacer) to whatever sits right below it if
-    that content shouldn't start underneath the navbar — the hero slider is
-    typically fine since it's meant to sit behind/under it.
 --}}
 @php
     // Only the homepage gets the transparent -> black on scroll behavior.
-    // Every other page is always black, no scroll listener needed.
     $isHome = request()->is('/');
+
+    // Fetch services from DB for the dropdown
+    $navServices = \App\Models\Services::select('id', 'title', 'main_header')->latest()->get();
 @endphp
 
 <header
@@ -39,9 +28,6 @@
         <div class="flex items-center justify-between h-20">
 
             {{-- Logo --}}
-            {{-- <a href="{{ url('/') }}" class="flex items-center shrink-0">
-                <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name', 'Euro Trend') }}" class="h-10 w-auto">
-            </a> --}}
             <x-app-logo />
 
             {{-- Desktop Nav --}}
@@ -51,7 +37,7 @@
                     HOME
                 </a>
                 <a href="{{ url('/about-us') }}"
-                   class="text-sm font-semibold tracking-wide text-white hover:text-emerald-500 transition-colors {{ request()->is('about') ? 'text-emerald-500' : '' }}">
+                   class="text-sm font-semibold tracking-wide text-white hover:text-emerald-500 transition-colors {{ request()->is('about-us') ? 'text-emerald-500' : '' }}">
                     ABOUT US
                 </a>
 
@@ -75,19 +61,29 @@
                          x-transition:leave-end="opacity-0 -translate-y-3 scale-95"
                          class="absolute left-0 top-full mt-2 w-64 bg-neutral-900 border border-gray-800 rounded shadow-xl py-2 origin-top"
                          style="display: none;">
-                        @foreach ([
-                            ['label' => 'Corporate Governance', 'url' => '/#corporate-governance'],
-                            ['label' => 'Code of Conduct', 'url' => '/#code-of-conduct'],
-                            ['label' => 'Team', 'url' => '/#team'],
-                            ['label' => 'R&D', 'url' => '/#rd'],
-                            ['label' => 'Words from the director', 'url' => '/#director'],
-                            ['label' => 'Delivery', 'url' => '/#delivery'],
-                        ] as $item)
-                            <a href="{{ url($item['url']) }}"
-                               class="block px-5 py-2.5 text-sm text-gray-300 hover:text-emerald-500 hover:bg-black/40 transition-colors">
-                                {{ $item['label'] }}
-                            </a>
-                        @endforeach
+                        @if ($navServices->count() > 0)
+                            @foreach ($navServices as $navService)
+                                <a href="{{ url('/#service-' . $navService->id) }}"
+                                   class="block px-5 py-2.5 text-sm text-gray-300 hover:text-emerald-500 hover:bg-black/40 transition-colors">
+                                    {{ $navService->title }}
+                                </a>
+                            @endforeach
+                        @else
+                            {{-- Static fallback when no services in DB --}}
+                            @foreach ([
+                                ['label' => 'Corporate Governance', 'url' => '/#corporate-governance'],
+                                ['label' => 'Code of Conduct',      'url' => '/#code-of-conduct'],
+                                ['label' => 'Team',                 'url' => '/#team'],
+                                ['label' => 'R&D',                  'url' => '/#rd'],
+                                ['label' => 'Words from the director', 'url' => '/#director'],
+                                ['label' => 'Delivery',             'url' => '/#delivery'],
+                            ] as $item)
+                                <a href="{{ url($item['url']) }}"
+                                   class="block px-5 py-2.5 text-sm text-gray-300 hover:text-emerald-500 hover:bg-black/40 transition-colors">
+                                    {{ $item['label'] }}
+                                </a>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
 
@@ -136,7 +132,7 @@
 
         <nav class="px-6 pb-10">
             <a href="{{ url('/') }}" class="block py-3 text-white font-semibold border-b border-gray-800">HOME</a>
-            <a href="{{ url('/about') }}" class="block py-3 text-white font-semibold border-b border-gray-800">ABOUT US</a>
+            <a href="{{ url('/about-us') }}" class="block py-3 text-white font-semibold border-b border-gray-800">ABOUT US</a>
 
             {{-- Services accordion --}}
             <button type="button"
@@ -158,19 +154,27 @@
                  x-transition:leave-end="opacity-0 -translate-y-2"
                  class="pl-4 border-b border-gray-800"
                  style="display: none;">
-                @foreach ([
-                    ['label' => 'Corporate Governance', 'url' => '/services/corporate-governance'],
-                    ['label' => 'Code of Conduct', 'url' => '/services/code-of-conduct'],
-                    ['label' => 'Path to a Greener Future', 'url' => '/services/greener-future'],
-                    ['label' => 'Team', 'url' => '/services/team'],
-                    ['label' => 'R&D', 'url' => '/services/rd'],
-                    ['label' => 'Words from the director', 'url' => '/services/director'],
-                    ['label' => 'Delivery', 'url' => '/services/delivery'],
-                ] as $item)
-                    <a href="{{ url($item['url']) }}" class="block py-3 text-gray-300 hover:text-emerald-500 transition-colors">
-                        {{ $item['label'] }}
-                    </a>
-                @endforeach
+                @if ($navServices->count() > 0)
+                    @foreach ($navServices as $navService)
+                        <a href="{{ url('/#service-' . $navService->id) }}" @click="mobileOpen = false" class="block py-3 text-gray-300 hover:text-emerald-500 transition-colors">
+                            {{ $navService->title }}
+                        </a>
+                    @endforeach
+                @else
+                    @foreach ([
+                        ['label' => 'Corporate Governance',     'url' => '/#corporate-governance'],
+                        ['label' => 'Code of Conduct',          'url' => '/#code-of-conduct'],
+                        ['label' => 'Path to a Greener Future', 'url' => '/#greener-future'],
+                        ['label' => 'Team',                     'url' => '/#team'],
+                        ['label' => 'R&D',                      'url' => '/#rd'],
+                        ['label' => 'Words from the director',  'url' => '/#director'],
+                        ['label' => 'Delivery',                 'url' => '/#delivery'],
+                    ] as $item)
+                        <a href="{{ url($item['url']) }}" @click="mobileOpen = false" class="block py-3 text-gray-300 hover:text-emerald-500 transition-colors">
+                            {{ $item['label'] }}
+                        </a>
+                    @endforeach
+                @endif
             </div>
 
             <a href="{{ url('/portfolio') }}" class="block py-3 text-white font-semibold border-b border-gray-800">PORTFOLIO</a>
