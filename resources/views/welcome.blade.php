@@ -1,7 +1,16 @@
 <x-layouts::guest>
     <section>
         <x-hero-slider :slides="$slides ?? []" />
-        <x-about-us />
+        @if (isset($aboutUs) && $aboutUs)
+            <x-about-us 
+                :heading="$aboutUs->title" 
+                :subheading="$aboutUs->question" 
+                :description="$aboutUs->answer" 
+                :cards="$aboutUs->card" 
+            />
+        @else
+            <x-about-us />
+        @endif
         <section id="services">
             <section id="corporate-governance">
                 <x-service-detail title="CODE OF CONDUCT"

@@ -1,18 +1,3 @@
-{{--
-Override content any time:
-
-<x-about-us :heading="'ABOUT US'" :subheading="'Who we are?'" :description="'Your paragraph...'" :cards="[
-                [
-                    'icon'  => 'search',   // search | clipboard | eye
-                    'image' => asset('images/mission.jpg'),
-                    'panel_image' => asset('images/mission-panel.jpg'),
-                    'title' => 'Our Mission',
-                    'text'  => 'Panel description...',
-                ],
-                // add as many cards as you like
-            ]" />
---}}
-
 @props([
     'heading' => 'ABOUT US',
     'subheading' => 'Who we are?',
@@ -21,23 +6,23 @@ Override content any time:
         [
             'icon' => 'search',
             'image' => 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=800&auto=format&fit=crop',
-            'panel_image' => 'https://images.unsplash.com/photo-1523419409543-a5e549c1faa8?q=80&w=800&auto=format&fit=crop',
+            'video' => 'https://images.unsplash.com/photo-1523419409543-a5e549c1faa8?q=80&w=800&auto=format&fit=crop',
             'title' => 'Our Mission',
-            'text' => 'At Euro Trend Group of Industries, our mission is to enhance equestrian experiences by providing premium gear that ensures optimal performance, comfort, and safety for both riders and horses. We are dedicated to innovation, sustainability, and quality in every product we craft.',
+            'description' => 'At Euro Trend Group of Industries, our mission is to enhance equestrian experiences by providing premium gear that ensures optimal performance, comfort, and safety for both riders and horses. We are dedicated to innovation, sustainability, and quality in every product we craft.',
         ],
         [
             'icon' => 'clipboard',
             'image' => 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop',
-            'panel_image' => 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop',
+            'video' => 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop',
             'title' => 'Our Plan',
-            'text' => 'We aim to achieve our mission by integrating cutting-edge technology, sustainable practices, and meticulous craftsmanship in our manufacturing processes. Our focus is on continuous improvement through research and development, leveraging renewable resources wherever possible.',
+            'description' => 'We aim to achieve our mission by integrating cutting-edge technology, sustainable practices, and meticulous craftsmanship in our manufacturing processes. Our focus is on continuous improvement through research and development, leveraging renewable resources wherever possible.',
         ],
         [
             'icon' => 'eye',
             'image' => 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop',
-            'panel_image' => 'https://images.unsplash.com/photo-1483721310020-03333e577078?q=80&w=800&auto=format&fit=crop',
+            'video' => 'https://images.unsplash.com/photo-1483721310020-03333e577078?q=80&w=800&auto=format&fit=crop',
             'title' => 'Our Vision',
-            'text' => 'Envisioning the precision of the ride, our vision is to revolutionize equestrian gear by elevating standards of accuracy, quality, and sustainability. We aspire to lead the industry by making each ride smoother, safer, and more refined for riders worldwide.',
+            'description' => 'Envisioning the precision of the ride, our vision is to revolutionize equestrian gear by elevating standards of accuracy, quality, and sustainability. We aspire to lead the industry by making each ride smoother, safer, and more refined for riders worldwide.',
         ],
     ],
 ])
@@ -78,7 +63,8 @@ Override content any time:
 
                     {{-- Top image + icon badge --}}
                     <div class="relative">
-                        <img src="{{ $card['image'] }}" alt="{{ $card['title'] }}" class="w-full h-52 rounded-t-xl object-cover">
+                        <img src="{{ $card['image'] }}" alt="{{ $card['title'] }}"
+                            class="w-full h-52 rounded-t-xl object-cover">
                         <div
                             class="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500 text-white shadow-md">
                             {!! $icons[$card['icon']] ?? $icons['search'] !!}
@@ -92,12 +78,13 @@ Override content any time:
 
                     {{-- Bottom text panel: image background + dark overlay, revealed/emphasized on hover --}}
                     <div class="relative h-56 rounded-b-xl overflow-hidden">
-                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                            style="background-image: url('{{ $card['panel_image'] }}')"></div>
+                        <video src="{{ $card['video'] }}"
+                            class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            autoplay muted loop playsinline></video>
                         <div class="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors duration-300">
                         </div>
                         <p class="relative z-10 h-full flex items-center px-5 text-sm leading-relaxed text-white">
-                            {{ $card['text'] }}
+                            {{ $card['description'] }}
                         </p>
                     </div>
                 </div>

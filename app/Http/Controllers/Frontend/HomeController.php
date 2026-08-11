@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutUs;
 use App\Models\Slides;
 
 class HomeController extends Controller
@@ -19,6 +20,8 @@ class HomeController extends Controller
             ];
         })->toArray();
 
-        return view('welcome', compact('slides'));
+        $aboutUs = AboutUs::latest()->first();
+
+        return view('welcome', compact('slides', 'aboutUs'));
     }
 }

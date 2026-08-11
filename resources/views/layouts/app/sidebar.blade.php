@@ -39,6 +39,11 @@
                     {{ __('Sliders') }}
                 </flux:sidebar.item>
 
+                <flux:sidebar.item icon="information-circle" :href="route('dashboard.about-us.index')" :current="request()->routeIs('dashboard.about-us.index') || request()->routeIs('dashboard.about-us.*')"
+                    wire:navigate>
+                    {{ __('About Us') }}
+                </flux:sidebar.item>
+
 
                 <flux:sidebar.item icon="cog-6-tooth" :href="route('dashboard.settings')" :current="request()->routeIs('dashboard.settings')"
                     wire:navigate>
