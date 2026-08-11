@@ -19,15 +19,19 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'image' => ['required', 'image', 'max:2048'],
-            'title' => ['nullable', 'string', 'max:255'],
+            'image'       => ['required', 'image', 'max:2048'],
+            'title'       => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'button_text' => ['nullable', 'string', 'max:100'],
-            'button_url' => ['nullable', 'url', 'max:255'],
+            'button_url'  => ['nullable', 'url', 'max:255'],
         ]);
 
         try {
             $validated['image'] = $request->file('image')->store('sliders', 'public');
+
+            // The DB column is 'text'; the form field is 'title'
+            $validated['text'] = $validated['title'] ?? null;
+            unset($validated['title']);
 
             Slides::create($validated);
         } catch (\Throwable $e) {

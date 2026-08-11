@@ -6,11 +6,12 @@ use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewLetterController;
 use App\Http\Controllers\Frontend\PageController as FrontendPageController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about-us', 'about-us')->name('aboutus');
 Route::view('/portfolio', 'portfolio')->name('portfolio');
 Route::view('/contact', 'contact')->name('contact');

@@ -148,12 +148,12 @@
                             dark:border-zinc-700 dark:bg-zinc-700">
                     <img
                         src="{{ asset('storage/' . $slider->image) }}"
-                        alt="{{ $slider->title }}"
+                        alt="{{ $slider->text }}"
                         class="h-20 w-32 shrink-0 rounded-lg object-cover"
                     >
 
                     <div class="min-w-0 flex-1">
-                        <h3 class="truncate font-semibold text-gray-900 dark:text-white">{{ $slider->title }}</h3>
+                        <h3 class="truncate font-semibold text-gray-900 dark:text-white">{{ $slider->text }}</h3>
                         <p class="line-clamp-2 text-sm text-gray-500 dark:text-gray-400">{{ $slider->description }}</p>
                         <span class="mt-1 inline-block text-xs font-medium text-emerald-600 dark:text-emerald-400">
                             {{ $slider->button_text }} &rarr; {{ $slider->button_url }}

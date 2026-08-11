@@ -1,6 +1,6 @@
 <x-layouts::guest>
     <section>
-        <x-hero-slider />
+        <x-hero-slider :slides="$slides ?? []" />
         <x-about-us />
         <section id="services">
             <section id="corporate-governance">

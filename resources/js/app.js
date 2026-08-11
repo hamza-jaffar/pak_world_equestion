@@ -1,3 +1,49 @@
+const registerHeroSlider = () => {
+    if (window.Alpine) {
+        window.Alpine.data('heroSlider', (interval, total) => ({
+            current: 0,
+            total:   total,
+            timer:   null,
+            _resize: null,
+
+            init() {
+                // Force a re-render on window resize so pixel offsets stay accurate
+                this._resize = () => { this.current = this.current; };
+                window.addEventListener('resize', this._resize);
+            },
+            destroy() {
+                this.stop();
+                window.removeEventListener('resize', this._resize);
+            },
+            start() {
+                this.stop();
+                if (this.total <= 1) return;
+                this.timer = setInterval(() => this.next(), interval);
+            },
+            stop() {
+                clearInterval(this.timer);
+                this.timer = null;
+            },
+            pause() { this.stop(); },
+            next() {
+                this.current = (this.current + 1) % this.total;
+            },
+            prev() {
+                this.current = (this.current - 1 + this.total) % this.total;
+            },
+            goTo(index) {
+                this.current = index;
+            },
+        }));
+        return true;
+    }
+    return false;
+};
+
+if (!registerHeroSlider()) {
+    document.addEventListener('alpine:init', registerHeroSlider);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
